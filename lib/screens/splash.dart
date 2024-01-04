@@ -18,6 +18,10 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(seconds: 2)).then((val) {
+      Navigator.pushReplacementNamed(
+        context,
+        '/mainMenu',
+      );
       Navigator.pushReplacement(
         context,MaterialPageRoute(builder: (context) => MainNavbarScreen()),);
     });

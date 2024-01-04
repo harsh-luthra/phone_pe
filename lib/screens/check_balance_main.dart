@@ -1,9 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phone_pe/screens/enter_pin_screen.dart';
 
 import '../const/colors.dart';
 import '../const/images.dart';
+import '../models/bank_details.dart';
 
 class CheckBalanceMain extends StatefulWidget {
   const CheckBalanceMain({Key? key}) : super(key: key);
@@ -13,6 +17,25 @@ class CheckBalanceMain extends StatefulWidget {
 }
 
 class _CheckBalanceMainState extends State<CheckBalanceMain> {
+
+  List<BankDetailsModel> linkedAccounts = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    addBanksData();
+  }
+
+  void addBanksData(){
+    BankDetailsModel boi = BankDetailsModel("Bank Of India", Image_Assets.boiImage,"1297",4325.72,"2580");
+    BankDetailsModel pnb = BankDetailsModel("Punjab National Bank", Image_Assets.pnbImage,"6110",1257.26,"258012");
+    BankDetailsModel sbi = BankDetailsModel("State Bank Of India", Image_Assets.sbiImage,"9865",1485.35,"258012");
+    linkedAccounts.add(boi);
+    linkedAccounts.add(pnb);
+    linkedAccounts.add(sbi);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,19 +52,19 @@ class _CheckBalanceMainState extends State<CheckBalanceMain> {
               Navigator.of(context).pop();
             },
             child: const Icon(
-              Icons.arrow_back_rounded,
+              Icons.arrow_back_sharp,
               color: Colors.white,
             )),
-        title: const Text(
+        title: Text(
           "Check Balance",
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: TextStyle(color: Colors.white, fontSize: 20.sp),
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Image(
-              image: AssetImage(Image_Assets.supportAppbar),
-              width: 20,
+            icon: Image(
+              image: const AssetImage(Image_Assets.supportAppbar),
+              width: 20.w,
             ),
             padding:
                 const EdgeInsets.only(left: 15, top: 15, bottom: 15, right: 20),
@@ -58,17 +81,17 @@ class _CheckBalanceMainState extends State<CheckBalanceMain> {
             const SizedBox(height: 6),
             prePaidBalance(),
             const SizedBox(height: 6),
-            const Center(
+            Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Powered by  ",
-                    style: TextStyle(fontSize: 8),
+                    style: TextStyle(fontSize: 8.sp),
                   ),
                   Image(
-                    image: AssetImage(Image_Assets.upiLogoImage),
-                    width: 25,
+                    image: const AssetImage(Image_Assets.upiLogoImage),
+                    width: 25.w,
                   ),
                 ],
               ),
@@ -81,47 +104,111 @@ class _CheckBalanceMainState extends State<CheckBalanceMain> {
 
   Widget methodsOnUPI() {
     return Container(
-      height: 250,
+      height: 55.h + (65.0.h * linkedAccounts.length),
+      // height: 250,
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(horizontal: 6.0),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+          borderRadius: BorderRadius.all(Radius.circular(15.w))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisSize: MainAxisSize.max,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(10.0),
+           Padding(
+            padding: EdgeInsets.all(10.0.w),
             child: Text(
               "Payment Methods on UPI",
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
             ),
           ),
-          const SizedBox(height: 10),
-          bankAccountListTile(Image_Assets.boiImage, "Bank Of India - 1297"),
-          const SizedBox(height: 10),
-          customSpacer(),
-          const SizedBox(height: 10),
-          bankAccountListTile(
-              Image_Assets.pnbImage, "Punjab National Bank - 6110"),
-          const SizedBox(height: 10),
-          customSpacer(),
-          const SizedBox(height: 10),
-          bankAccountListTile(
-              Image_Assets.sbiImage, "State Bank of India - 9865"),
-          const SizedBox(height: 10),
+          Container(height: (70.0.h * linkedAccounts.length) , child: linkedAccountsList(linkedAccounts)),
+          // const SizedBox(height: 10),
+          // bankAccountListTile(Image_Assets.boiImage, "Bank Of India","1297"),
+          // const SizedBox(height: 10),
+          // customSpacer(),
+          // const SizedBox(height: 10),
+          // bankAccountListTile(Image_Assets.pnbImage, "Punjab National Bank","6110"),
+          // const SizedBox(height: 10),
+          // customSpacer(),
+          // const SizedBox(height: 10),
+          // bankAccountListTile(Image_Assets.sbiImage, "State Bank of India","9865"),
+          // const SizedBox(height: 10),
         ],
       ),
     );
   }
 
-  Widget bankAccountListTile(String bankImage, String bankName) {
+  Widget linkedAccountsList(List<BankDetailsModel> data){
+    return ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            children: [
+              const SizedBox(height: 10),
+              bankAccountListTile(data[index]),
+              const SizedBox(height: 10),
+              if(index+1 != data.length) // added to add only line in between
+                customSpacer(),
+            ],
+          );
+        });
+  }
+  
+  Widget bankAccountListTile(BankDetailsModel bankDetailsModel) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
         splashColor: ColorAssets.bgColorLight,
         onTap: () {
-          checkBalance("Bank of India", "3174");
+          checkBalance(bankDetailsModel);
+        },
+        child: SizedBox(
+          height: 50.h,
+          child: Row(
+            children: [
+              Container(
+                height: 40.h,
+                width: 40.w,
+                margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.black12),
+                    borderRadius: const BorderRadius.all(Radius.circular(15))),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Image(
+                      image: AssetImage(bankDetailsModel.imageName),
+                      fit: BoxFit.scaleDown,
+                      width: 10,
+                      height: 10,
+                    ),
+                  ),
+                ),
+              ),
+              Text("${bankDetailsModel.name} - ${bankDetailsModel.accountNumber}",style: TextStyle(fontSize: 14.sp),),
+              const Spacer(),
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 15,
+              ),
+              const SizedBox(width: 10),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget prepaidListTile(String bankImage, String bankName) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        splashColor: ColorAssets.bgColorLight,
+        onTap: () {
+          // checkBalance("Bank of India", "3174");
         },
         child: SizedBox(
           height: 50,
@@ -164,7 +251,7 @@ class _CheckBalanceMainState extends State<CheckBalanceMain> {
 
   Widget bankStatement() {
     return Container(
-      height: 60,
+      height: 65.h,
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(horizontal: 6.0),
       decoration: const BoxDecoration(
@@ -176,7 +263,7 @@ class _CheckBalanceMainState extends State<CheckBalanceMain> {
           splashColor: ColorAssets.bgColorLight,
           onTap: () {},
           child: SizedBox(
-            height: 50,
+            height: 60.h,
             child: Row(
               children: [
                 Padding(
@@ -184,21 +271,21 @@ class _CheckBalanceMainState extends State<CheckBalanceMain> {
                       const EdgeInsets.only(left: 20.0, bottom: 4, right: 10),
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(5.0),
-                      child: const Image(
+                      child: Image(
                         image: AssetImage(Image_Assets.bankStatementImage),
                         fit: BoxFit.scaleDown,
-                        width: 40,
-                        height: 40,
+                        width: 45.w,
+                        height: 45.h,
                       )),
                 ),
-                const Column(
+                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Bank Statement"),
+                    Text("Bank Statement",style: TextStyle(fontSize: 15.sp),),
                     Text(
                       "PhonePe Account Aggregator",
-                      style: TextStyle(fontSize: 10),
+                      style: TextStyle(fontSize: 11.sp),
                     )
                   ],
                 ),
@@ -235,11 +322,11 @@ class _CheckBalanceMainState extends State<CheckBalanceMain> {
             ),
           ),
           const SizedBox(height: 0),
-          bankAccountListTile(Image_Assets.upiLiteIconImage, "UPI Lite"),
+          prepaidListTile(Image_Assets.upiLiteIconImage, "UPI Lite"),
           const SizedBox(height: 10),
           customSpacer(),
           const SizedBox(height: 10),
-          bankAccountListTile(
+          prepaidListTile(
               Image_Assets.phonePeWalletImage, "PhonePe Wallet"),
           const SizedBox(height: 10),
         ],
@@ -288,13 +375,14 @@ class _CheckBalanceMainState extends State<CheckBalanceMain> {
     );
   }
 
-  void checkBalance(String bankAccount, String Pin) {
+  void checkBalance(BankDetailsModel bankData) {
     showLoaderDialog(context);
     Future.delayed(const Duration(seconds: 2)).then((val) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => EnterPinScreen()),
-      );
+      Navigator.pushReplacementNamed(context, "/enterPin",arguments: bankData);
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => EnterPinScreen()),
+      // );
       // Navigator.pop(context);
     });
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phone_pe/const/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:phone_pe/screens/check_balance_main.dart';
@@ -30,19 +31,19 @@ class _MainScreenState extends State<MainScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
             adBanners(),
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
             transferMoney(),
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
             receiveMoneyUpiId(receiveMoney),
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
             upiLiteSection(upiLiteAction),
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
             rechargeBillPayment(),
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
             insuranceSection(),
-            const SizedBox(height: 6),
+            SizedBox(height: 6.h),
           ],
         ),
     );
@@ -50,47 +51,46 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget leadingAppbar() {
     return Padding(
-      padding:
-          const EdgeInsets.only(right: 0.0, left: 15.0, top: 10, bottom: 10),
+      padding: EdgeInsets.only(right: 0.0, left: 15.h, top: 10.h, bottom: 10.h),
       child: SizedBox(
-        height: 50,
-        width: 40,
+        height: 50.w,
+        width: 40.h,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
             Container(
-              width: 35,
-              height: 45,
+              width: 35.w,
+              height: 45.h,
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              child: const Center(
+                  borderRadius: BorderRadius.all(Radius.circular(15.w))),
+              child: Center(
                   child: Image(
                 image: AssetImage(Image_Assets.avatarPlaceHolder),
-                width: 18,
+                width: 18.w,
               )),
             ),
             Positioned(
               bottom: 0,
-              right: -4,
+              right: -4.h,
               child: Container(
                 clipBehavior: Clip.antiAlias,
-                width: 18,
-                height: 18,
+                width: 18.w,
+                height: 18.h,
                 decoration: BoxDecoration(
                     color: Colors.transparent,
                     border: Border.all(
-                      width: 1.5,
+                      width: 1.5.w,
                       color: Colors.white,
                     ),
-                    borderRadius: const BorderRadius.all(Radius.circular(8))),
-                child: const ClipOval(
+                    borderRadius: BorderRadius.all(Radius.circular(8.w))),
+                child: ClipOval(
                     child: Center(
                         child: Image(
                   image: AssetImage(Image_Assets.flagImage),
-                  width: 125,
-                  height: 125,
+                  width: 125.w,
+                  height: 125.h,
                   fit: BoxFit.cover,
                 ))),
               ),
@@ -109,30 +109,30 @@ class _MainScreenState extends State<MainScreen> {
         Row(children: [
           Text(
             "Add Address",
-            style: TextStyle(color: Colors.white, fontSize: 14),
+            style: TextStyle(color: Colors.white, fontSize: 14.sp),
           ),
           Icon(
             Icons.arrow_drop_down_rounded,
             color: Colors.white,
-            size: 20,
+            size: 20.w,
           ),
         ]),
         Text(
           "Rohtak SubDistrict",
           style:
-              TextStyle(color: Color.fromRGBO(217, 187, 243, 21), fontSize: 10),
+              TextStyle(color: const Color.fromRGBO(217, 187, 243, 21), fontSize: 10.sp),
         ),
       ],
     );
   }
 
   Widget adBanners() {
-    return Container(
-      height: 125,
+    return SizedBox(
+      height: 125.h,
       width: MediaQuery.of(context).size.width,
       child: CarouselSlider(
         options: CarouselOptions(
-            height: 400.0,
+            height: 400.h,
             enableInfiniteScroll: true,
             autoPlay: true,
             autoPlayInterval: const Duration(seconds: 5),
@@ -161,33 +161,33 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget transferMoney() {
     return Container(
-      height: 120,
+      height: 130.h,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 6.0),
-      decoration: const BoxDecoration(
+      margin: EdgeInsets.symmetric(horizontal: 6.h),
+      decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+          borderRadius: BorderRadius.all(Radius.circular(15.h))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.h),
             child: Text(
               "Transfer Money",
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               buttonsWithIconText(Image_Assets.sendToMobileImage,
-                  "To Mobile Number", Send_to_number, 40),
+                  "To Mobile Number", Send_to_number, 45.h),
               buttonsWithIconText(Image_Assets.sendToUPIImage,
-                  "To Bank/   UPI ID", Send_to_Upi, 40),
+                  "To Bank/   UPI ID", Send_to_Upi, 45.h),
               buttonsWithIconText(Image_Assets.sendToSelfImage,
-                  "To Self Account", Send_to_Self, 40),
+                  "To Self Account", Send_to_Self, 45.h),
               buttonsWithIconText(Image_Assets.checkBalanceImage,
-                  "Check Balance", Check_Balance, 40),
+                  "Check Balance", Check_Balance, 45.h),
             ],
           )
         ],
@@ -204,8 +204,8 @@ class _MainScreenState extends State<MainScreen> {
           onTap: callback,
           child: Container(
             margin: EdgeInsets.all(2),
-            width: 65,
-            height: 75,
+            width: 65.h,
+            height: 80.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -215,14 +215,14 @@ class _MainScreenState extends State<MainScreen> {
                   width: size,
                   fit: BoxFit.contain,
                 ),
-                const SizedBox(
-                  height: 6,
+                 SizedBox(
+                  height: 6.h,
                 ),
                 Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 10, color: Colors.black, height: 1.1),
+                  style: TextStyle(
+                      fontSize: 12.sp, color: Colors.black, height: 1.1),
                 ),
               ],
             ),
@@ -234,27 +234,27 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget receiveMoneyUpiId(VoidCallback callback) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 6.0),
-      decoration: const BoxDecoration(
+      margin: EdgeInsets.symmetric(horizontal: 6.0.h),
+      decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+          borderRadius: BorderRadius.all(Radius.circular(15.w))),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           splashColor: ColorAssets.bgColorLight,
           onTap: callback,
           child: Container(
-            height: 60,
+            height: 60.h,
             width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.symmetric(horizontal: 6.0),
-            decoration: const BoxDecoration(
+            margin: EdgeInsets.symmetric(horizontal: 6.0.h),
+            decoration: BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: BorderRadius.all(Radius.circular(15))),
+                borderRadius: BorderRadius.all(Radius.circular(15.w))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(10.0.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -376,21 +376,36 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget rechargeBillPayment() {
     return Container(
-      height: 200,
+      height: 220.h,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 6.0),
-      decoration: const BoxDecoration(
+      margin: EdgeInsets.symmetric(horizontal: 6.0.h),
+      decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+          borderRadius: BorderRadius.all(Radius.circular(15.w))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              "Transfer Money",
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-            ),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(10.0.w),
+                child: Text(
+                  "Recharge & Bills",
+                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400),
+                ),
+              ),
+              Spacer(),
+              Container(
+                width: 60.w,
+                height: 20.h,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(50, 252, 194, 252),
+                  borderRadius: BorderRadius.all(Radius.circular(20.w))
+                ),
+                child: Center(child: Text("My Bills",style: TextStyle(fontSize: 12.sp),)),
+              ),
+              SizedBox(width: 15.w,)
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -425,7 +440,7 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget insuranceSection() {
     return Container(
-      height: 200,
+      height: 225.h,
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(horizontal: 6.0),
       decoration: const BoxDecoration(
@@ -486,8 +501,12 @@ class _MainScreenState extends State<MainScreen> {
 
   void Check_Balance() {
     print("Check_Balance");
-    Navigator.push(
-      context,MaterialPageRoute(builder: (context) => CheckBalanceMain()),);
+    Navigator.pushNamed(
+      context,
+      '/checkBalanceMenu',
+    );
+    // Navigator.push(
+    //   context,MaterialPageRoute(builder: (context) => CheckBalanceMain()),);
   }
 
   void receiveMoney() {

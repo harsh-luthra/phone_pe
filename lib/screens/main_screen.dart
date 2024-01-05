@@ -118,7 +118,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ]),
         Text(
-          "Rohtak SubDistrict",
+          "Patel Nagar",
           style:
               TextStyle(color: const Color.fromRGBO(217, 187, 243, 21), fontSize: 10.sp),
         ),
@@ -352,7 +352,7 @@ class _MainScreenState extends State<MainScreen> {
                 Row(
                   children: [
                     Text(
-                      "₹306",
+                      "₹3",
                       style: TextStyle(
                           fontWeight: FontWeight.w500, color: Colors.green),
                     ),

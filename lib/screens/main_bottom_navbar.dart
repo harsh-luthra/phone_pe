@@ -1,5 +1,7 @@
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phone_pe/screens/main_screen.dart';
 
 import '../const/colors.dart';
@@ -30,45 +32,43 @@ class _MainNavbarScreenState extends State<MainNavbarScreen> {
         leading: leadingAppbar(),
         title: centerAppbar(),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Image(image: AssetImage(Image_Assets.qrAppbar)),
-            padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15),
-            iconSize: 10,
+          GestureDetector(
+            onTap: (){},
+            child: Image(image: const AssetImage(Image_Assets.qrAppbar),width: 22.sp,),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Stack(
+          SizedBox(width: 15.sp,),
+          GestureDetector(
+            onTap: (){},
+            child: Stack(
               clipBehavior: Clip.none,
               children: [
                 Positioned(
-                    top: -10,
-                    right: -6,
+                    top: -12,
+                    right: -8,
                     child: Container(
                       width: 16,
                       height: 16,
                       decoration: BoxDecoration(
-                        color: Color.fromRGBO(45, 157, 102, 1),
+                        color: Colors.green,
                         borderRadius: BorderRadius.circular(
                             20), // Adjust the value for desired rounding
                       ),
                       child: const Center(
                           child: Text(
-                        "6",
-                        style: TextStyle(color: Colors.white, fontSize: 10),
-                      )),
+                            "6",
+                            style: TextStyle(color: Colors.white, fontSize: 10),
+                          )),
                     )),
-                const Image(image: AssetImage(Image_Assets.notiAppbar)),
+                Image(image: const AssetImage(Image_Assets.notiAppbar),width: 16.sp,),
               ],
             ),
-            padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Image(image: AssetImage(Image_Assets.supportAppbar)),
-            padding:
-                const EdgeInsets.only(left: 15, top: 15, bottom: 15, right: 20),
+          SizedBox(width: 15.sp,),
+          GestureDetector(
+            onTap: () {},
+            child: Image(image: const AssetImage(Image_Assets.supportAppbar),width: 17.sp,),
           ),
+          SizedBox(width: 10.sp,),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -120,7 +120,10 @@ class _MainNavbarScreenState extends State<MainNavbarScreen> {
           ),
         ],
       ),
-      body: const MainScreen(),
+      body: const DoubleBackToCloseApp(snackBar: SnackBar(
+        content: Text('Please HIT Back Button Again to Exit'),
+      ),
+      child: MainScreen()),
     );
   }
 
@@ -146,7 +149,7 @@ class _MainNavbarScreenState extends State<MainNavbarScreen> {
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
+                  borderRadius: const BorderRadius.all(Radius.circular(15))),
               child: const Center(
                   child: Image(
                 image: AssetImage(Image_Assets.avatarPlaceHolder),
@@ -200,7 +203,7 @@ class _MainNavbarScreenState extends State<MainNavbarScreen> {
           ),
         ]),
         Text(
-          "Rohtak SubDistrict",
+          "Patel Nagar",
           style:
               TextStyle(color: Color.fromRGBO(217, 187, 243, 21), fontSize: 10),
         ),

@@ -66,7 +66,7 @@ class _CheckingBalanceState extends State<CheckingBalance>
       setState(() {
         loading = false;
       });
-      Future.delayed(const Duration(seconds: 1)).then((value) {
+      Future.delayed(const Duration(milliseconds: 2200)).then((value) {
         _controller.repeat(reverse: true);
       });
     });
@@ -151,8 +151,8 @@ class _CheckingBalanceState extends State<CheckingBalance>
               // width: 100 * _animation.value,
               // height: 100 * _animation.value,
               child: Gif(
-                width: 100 * _animation.value,
-                height: 100 * _animation.value,
+                width: 75 * _animation.value,
+                height: 75 * _animation.value,
                 autostart: Autostart.once,
                 placeholder: (context) =>
                     const Center(child: CircularProgressIndicator()),
@@ -184,14 +184,14 @@ class _CheckingBalanceState extends State<CheckingBalance>
         alignment: Alignment.center,
         children: [
           Positioned(
-            top: -25,
+            top: -0,
             child: Container(
               child: Transform.scale(
                 scale: _animation.value,
                 // duration: Duration(seconds: 2),
                 child: Gif(
-                  width: 200.w,
-                  height: 200.h,
+                  width: 150.w,
+                  height: 150.h,
                   autostart: Autostart.once,
                   placeholder: (context) =>
                       const Center(child: CircularProgressIndicator()),

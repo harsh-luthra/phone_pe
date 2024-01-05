@@ -1,3 +1,4 @@
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phone_pe/const/images.dart';
@@ -31,123 +32,127 @@ class _EnterPinScreenState extends State<EnterPinScreen> {
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(215, 214, 214, 1.0),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Container(
-            child: Column(
-              children: [
-                // const SizedBox(
-                //   height:25,
-                // ),
-                Container(
-                  color: Colors.white,
-                  width: MediaQuery.of(context).size.width,
-                  height: 55,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 8.0),
+      body: DoubleBackToCloseApp(snackBar: const SnackBar(
+        content: Text('Please HIT Back Button Again to Exit'),
+      ),
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Container(
+              child: Column(
+                children: [
+                  // const SizedBox(
+                  //   height:25,
+                  // ),
+                  Container(
+                    color: Colors.white,
+                    width: MediaQuery.of(context).size.width,
+                    height: 55,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 5.h),
+                          Row(
+                            children: [
+                              SizedBox(width: 5.w,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    bankData.name,
+                                    style: const TextStyle(fontWeight: FontWeight.w500),
+                                  ),
+                                  Text("XXXX${bankData.accountNumber}",style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600),),
+                                ],
+                              ),
+                              const Spacer(),
+                              Image(
+                                image: const AssetImage(Image_Assets.upiLogoImage),
+                                width: 80.w,
+                                height: 40.h,
+                              ),
+                              SizedBox(
+                                width: 50.w,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "  Check Balance",
+                        textAlign: TextAlign.start,
+                      )),
+                  Container(
+                    color: Colors.white,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height *.45,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 5.h),
-                        Row(
-                          children: [
-                            SizedBox(width: 5.w,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  bankData.name,
-                                  style: const TextStyle(fontWeight: FontWeight.w500),
+                        SizedBox(height: 15.h),
+                        Text("ENTER ${bankData.upiPin.length}-DIGIT UPI PIN"),
+                        SizedBox(height: 40.h,),
+                        bankData.upiPin.length == 4 ? pinSectionWidget_4(bankData.upiPin.length) : pinSectionWidget_6(bankData.upiPin.length),
+                        SizedBox(height: 80.h,),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          height: 60.h,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                            color: Color.fromRGBO(252, 237, 166, 0.7),
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(8.0.w),
+                                child: Image(
+                                  image: AssetImage(Image_Assets.cautionImage),
+                                  width: 35.w,
+                                  height: 35.h,
                                 ),
-                                Text("XXXX${bankData.accountNumber}",style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w600),),
-                              ],
-                            ),
-                            const Spacer(),
-                            Image(
-                              image: const AssetImage(Image_Assets.upiLogoImage),
-                              width: 80.w,
-                              height: 40.h,
-                            ),
-                            SizedBox(
-                              width: 50.w,
-                            ),
-                          ],
-                        )
+                              ),
+                              Text(
+                                "UPI PIN will keep your account\nsecure from unauthorized access.\nDo not share this PIN with anyone.",
+                                style: TextStyle(height: 1.2, fontSize: 15.sp,color: Colors.black54),textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 15),
-                const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "  Check Balance",
-                      textAlign: TextAlign.start,
-                    )),
-                Container(
-                  color: Colors.white,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height *.45,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 15.h),
-                      Text("ENTER ${bankData.upiPin.length}-DIGIT UPI PIN"),
-                      SizedBox(height: 40.h,),
-                      bankData.upiPin.length == 4 ? pinSectionWidget_4(bankData.upiPin.length) : pinSectionWidget_6(bankData.upiPin.length),
-                      SizedBox(height: 80.h,),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        height: 60.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                          color: Color.fromRGBO(252, 237, 166, 0.7),
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.0.w),
-                              child: Image(
-                                image: AssetImage(Image_Assets.cautionImage),
-                                width: 35.w,
-                                height: 35.h,
-                              ),
-                            ),
-                            Text(
-                              "UPI PIN will keep your account\nsecure from unauthorized access.\nDo not share this PIN with anyone.",
-                              style: TextStyle(height: 1.2, fontSize: 15.sp,color: Colors.black54),textAlign: TextAlign.center,
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                KeyPad(
-                  pinLength: bankData.upiPin.length,
-                  pinController: pinController,
-                  isPinLogin: false,
-                  onChange: (String pin) {
-                    print(pin);
-                    setState(() {
-                      pinLength = pinController.text.length;
-                    });
-                  },
-                  onSubmit: (String pin) {
-                    if(pin.length != bankData.upiPin.length){
-                      showCustomSnackBar(bankData.upiPin.length);
-                      return;
+                  KeyPad(
+                    pinLength: bankData.upiPin.length,
+                    pinController: pinController,
+                    isPinLogin: false,
+                    onChange: (String pin) {
+                      print(pin);
+                      setState(() {
+                        pinLength = pinController.text.length;
+                      });
+                    },
+                    onSubmit: (String pin) {
+                      if(pin.length != bankData.upiPin.length){
+                        showCustomSnackBar(bankData.upiPin.length);
+                        return;
+                      }
+                      print(pin);
+                      pinController.text = "";
+                      pinLength = 0;
+                      Navigator.pushReplacementNamed(context, "/checkingBalance",arguments: bankData);
+                      // Navigator.pushReplacement(
+                      //   context,MaterialPageRoute(builder: (context) => CheckingBalance()),);
                     }
-                    print(pin);
-                    pinController.text = "";
-                    pinLength = 0;
-                    Navigator.pushReplacementNamed(context, "/checkingBalance",arguments: bankData);
-                    // Navigator.pushReplacement(
-                    //   context,MaterialPageRoute(builder: (context) => CheckingBalance()),);
-                  }
-                ),
-                const SizedBox(height: 10),
-              ],
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ),
             ),
           ),
         ),
